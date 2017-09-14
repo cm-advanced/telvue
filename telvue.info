@@ -1,0 +1,16 @@
+name = CMA Telvue
+package = Community Media Advanced
+description = "Defines API functions to allow Drupal to communicate with a Telvue."
+core = 7.x
+
+configure = admin/config/system/telvue
+
+files[] = telvue.install
+files[] = telvue.module
+
+
+version = "7.x-2.0"
+core = "7.x"
+project = "telvue"
+project_status_url = https://github.com/cm-advanced/cma_telvue
+
