@@ -414,7 +414,7 @@ function telvue_push_push($node, $return = TRUE) {
   if (!empty($mapping['ingest_datetime']) && $mapped['ingest_datetime']) {
     // Show time is typically formatted as '08/04/2015 - 8:00pm'.
     $ingest_datetime = $mapped['ingest_datetime'];
-    $ingest_datetime = DateTime::createFromFormat ('m/d/Y - g:ia', $ingest_datetime));
+    $ingest_datetime = DateTime::createFromFormat ('m/d/Y - g:ia', $ingest_datetime);
 
     // Output format should be '2018-10-09 2:00 -04:00'.
     $ingest_datetime = date_format($ingest_datetime, 'Y-m-d g:i P');
