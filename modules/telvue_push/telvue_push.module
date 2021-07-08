@@ -99,6 +99,7 @@ function telvue_push_get_mapping_targets() {
       'label' => t('Location'),
       'description' => t('32 characters or less'),
     ),
+    'ingest_datetime' => array('label' => t('Ingest Datetime')),
   );
 
   return $targets;
@@ -409,6 +410,24 @@ function telvue_push_push($node, $return = TRUE) {
     $location = new SoapVar('<value xsi:nil="true" />', XSD_ANYXML);
   }
 
+  // INGEST Datetime
+  if (!empty($mapping['ingest_datetime']) && $mapped['ingest_datetime']) {
+    // Show time is typically formatted as '08/04/2015 - 8:00pm'.
+    $ingest_datetime = $mapped['ingest_datetime'];
+    $ingest_datetime = DateTime::createFromFormat ('m/d/Y - g:ia', $ingest_datetime);
+
+    // Output format should be '2018-10-09 2:00 -04:00'.
+    $ingest_datetime = date_format($ingest_datetime, 'Y-m-d g:i P');
+
+    // Deal with badly formatted dates.
+    if ($ingest_datetime === FALSE) {
+      $ingest_datetime = date('Y-m-d g:i P', time());
+    }
+  }
+  else {
+    $ingest_datetime = date('Y-m-d g:i P', time());
+  }
+
   // map other fields
   if (!empty($mapping['program']) && $mapped['program']) {
     $program_val = $mapped['program'];
@@ -429,6 +448,7 @@ function telvue_push_push($node, $return = TRUE) {
     'contributor' => $contributor ,
     'location' => $location,
     'username' => $username,
+    'ingest_datetime' => $ingest_datetime,
   );
 
   ;

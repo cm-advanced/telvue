@@ -152,7 +152,9 @@ function telvue_addprogram($program, $server) {
  if (!isset($program['ingest_datetime'])) {
    $program['import_datetime'] = date('Y-m-d g:i P', time());
  }
- 
+ else {
+   $program['import_datetime'] = $program['ingest_datetime'];
+ }
  
  if (!$program['expected_filename'] || !$program['expected_duration']) {
    return 'Failed';
